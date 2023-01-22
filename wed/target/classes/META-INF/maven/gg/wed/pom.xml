@@ -4,6 +4,22 @@
   <artifactId>wed</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
+  <dependency>
+         <groupId>org.apache.geronimo.specs</groupId>
+         <artifactId>geronimo-jms_1.1_spec</artifactId>
+         <version>1.1</version>
+      </dependency>
+       <dependency>
+         <groupId>org.apache.qpid</groupId>
+         <artifactId>qpid-jms-client</artifactId>
+         <version>0.40.0</version>
+       </dependency>
+             <dependency>  
+            <groupId>org.quartz-scheduler</groupId>  
+            <artifactId>quartz</artifactId>  
+            <version>2.1.5</version>  
+        </dependency>  
+ 
       <dependency>
          <groupId>org.apache.geronimo.specs</groupId>
          <artifactId>geronimo-jms_1.1_spec</artifactId>
@@ -18,7 +34,7 @@
 <dependency>
     <groupId>com.datastax.cassandra</groupId>
     <artifactId>dse-driver</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.0</version>
 </dependency>
       
    </dependencies>

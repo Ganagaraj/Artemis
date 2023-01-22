@@ -22,6 +22,7 @@ public class Publisher implements Job{
 	   try {
       Utilitis utility = new Utilitis();
          String response = "Artemis --->>> Hello user! Time is " + new Date();
+         System.err.println(response);
          TextMessage msg = utility.getSession().createTextMessage(response);
          utility.getPublisher().send(msg);
      // input.close();

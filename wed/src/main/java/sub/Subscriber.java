@@ -11,7 +11,17 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import cassandradb.com.*;
+
 import org.apache.qpid.jms.JmsConnectionFactory;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
+
+import com.export.Export;
 
 public class Subscriber {
    public static void main(String[] args) throws Exception {
@@ -22,7 +32,15 @@ public class Subscriber {
       Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
       Destination destination = session.createTopic("Alstom");
       MessageConsumer subscriber = session.createConsumer(destination);
-      Console c = System.console();
+      
+      
+     /* JobDetail job1 = JobBuilder.newJob(Export.class).withIdentity("job1", "group1").build();  
+      Trigger trigger1 = TriggerBuilder.newTrigger().withIdentity("cronTrigger1", "group1").withSchedule(CronScheduleBuilder.cronSchedule("2 * * * * ?")).build();  
+      Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();  
+      scheduler1.start();  
+      scheduler1.scheduleJob(job1, trigger1); */
+      
+      
       String response;
       do {      	
          Message msg = subscriber.receive();

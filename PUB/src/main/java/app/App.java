@@ -1,6 +1,6 @@
 package app;
 
-import java.util.concurrent.Flow.Publisher;
+import pub.Publisher;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -25,7 +25,7 @@ public class App {
  
 	   try {  
 	       JmsConnectionFactory factory = new JmsConnectionFactory("amqp://localhost:5672");
-	        Connection connection = factory.createConnection("Ganagaraj", "admin");
+	        Connection connection = factory.createConnection("admin", "admin");
 	        connection.start();
 	        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 	        Destination destination = session.createTopic("Alstom");
@@ -33,8 +33,9 @@ public class App {
              Utilitis utility = new Utilitis();
              utility.setSession(session);
              utility.setPublisher(publisher);
-	         JobDetail job1 = JobBuilder.newJob((Class<? extends Job>) Publisher.class).withIdentity("job1", "group1").build();  
-	         Trigger trigger1 = TriggerBuilder.newTrigger().withIdentity("cronTrigger1", "group1").withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?")).build();  
+	         
+			JobDetail job1 = JobBuilder.newJob(Publisher.class).withIdentity("job1", "group1").build();  
+	         Trigger trigger1 = TriggerBuilder.newTrigger().withIdentity("cronTrigger1", "group1").withSchedule(CronScheduleBuilder.cronSchedule("0/30 * * * * ?")).build();  
 	         Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();  
 	         scheduler1.start();  
 	         scheduler1.scheduleJob(job1, trigger1);  
