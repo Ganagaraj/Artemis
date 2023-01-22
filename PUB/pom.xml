@@ -14,5 +14,16 @@
          <artifactId>qpid-jms-client</artifactId>
          <version>0.40.0</version>
       </dependency>
+             <dependency>  
+            <groupId>org.quartz-scheduler</groupId>  
+            <artifactId>quartz</artifactId>  
+            <version>2.2.1</version>  
+        </dependency>  
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.12.0</version>
+</dependency>
    </dependencies>
 </project>

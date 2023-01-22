@@ -1,6 +1,7 @@
 package pub;
 
 import java.io.Console;
+import java.util.Date;
 import java.util.Scanner;
 
 import javax.jms.Connection;
@@ -10,28 +11,21 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.qpid.jms.JmsConnectionFactory;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
-public class Publisher {
-   public static void main(String[] args) {
+import com.utilitis.Utilitis;
+
+public class Publisher implements Job{
+   public void execute(JobExecutionContext context) throws JobExecutionException  {
 	   try {
-      JmsConnectionFactory factory = new JmsConnectionFactory("amqp://localhost:5672");
-      Connection connection = factory.createConnection("Ganagaraj", "admin");
-      connection.start();
-      Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-      Destination destination = session.createTopic("Alstom");
-      MessageProducer publisher = session.createProducer(destination);
-
-      Scanner input = new Scanner(System.in);
-      String response;
-      do {
-         System.out.println("Enter message: ");
-         response = input.nextLine();
-         TextMessage msg = session.createTextMessage(response);
-         publisher.send(msg);
-
-      } while (!response.equalsIgnoreCase("Quit"));
-      input.close();
-      connection.close();
+      Utilitis utility = new Utilitis();
+         String response = "Artemis --->>> Hello user! Time is " + new Date();
+         TextMessage msg = utility.getSession().createTextMessage(response);
+         utility.getPublisher().send(msg);
+     // input.close();
+      //connection.close();
 	   }
 	   catch(Exception e) {
 		   System.err.println(e);
