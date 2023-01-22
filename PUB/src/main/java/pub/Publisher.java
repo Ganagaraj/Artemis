@@ -1,37 +1,40 @@
-package sub;
-
+package pub;
 
 import java.io.Console;
+import java.util.Scanner;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import cassandradb.com.*;
+
 import org.apache.qpid.jms.JmsConnectionFactory;
 
-public class Subscriber {
-   public static void main(String[] args) throws Exception {
+public class Publisher {
+   public static void main(String[] args) {
+	   try {
       JmsConnectionFactory factory = new JmsConnectionFactory("amqp://localhost:5672");
       Connection connection = factory.createConnection("Ganagaraj", "admin");
       connection.start();
-      Db db = new Db();
       Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
       Destination destination = session.createTopic("Alstom");
-      MessageConsumer subscriber = session.createConsumer(destination);
-      Console c = System.console();
+      MessageProducer publisher = session.createProducer(destination);
+
+      Scanner input = new Scanner(System.in);
       String response;
-      do {      	
-         Message msg = subscriber.receive();
-         response = ((TextMessage) msg).getText();
-         System.out.println("Received = "+response);
-         db.cassandradb(response);
+      do {
+         System.out.println("Enter message: ");
+         response = input.nextLine();
+         TextMessage msg = session.createTextMessage(response);
+         publisher.send(msg);
 
       } while (!response.equalsIgnoreCase("Quit"));
-
+      input.close();
       connection.close();
+	   }
+	   catch(Exception e) {
+		   System.err.println(e);
+	   }
    }
 }
