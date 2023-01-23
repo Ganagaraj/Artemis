@@ -34,11 +34,11 @@ public class Subscriber {
       MessageConsumer subscriber = session.createConsumer(destination);
       
       
-     /* JobDetail job1 = JobBuilder.newJob(Export.class).withIdentity("job1", "group1").build();  
+     JobDetail job1 = JobBuilder.newJob(Export.class).withIdentity("job1", "group1").build();  
       Trigger trigger1 = TriggerBuilder.newTrigger().withIdentity("cronTrigger1", "group1").withSchedule(CronScheduleBuilder.cronSchedule("2 * * * * ?")).build();  
       Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();  
       scheduler1.start();  
-      scheduler1.scheduleJob(job1, trigger1); */
+      scheduler1.scheduleJob(job1, trigger1); 
       
       
       String response;

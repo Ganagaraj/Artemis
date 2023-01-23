@@ -25,7 +25,7 @@ public class App {
  
 	   try {  
 	       JmsConnectionFactory factory = new JmsConnectionFactory("amqp://localhost:5672");
-	        Connection connection = factory.createConnection("admin", "admin");
+	        Connection connection = factory.createConnection("Ganagaraj", "admin");
 	        connection.start();
 	        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 	        Destination destination = session.createTopic("Alstom");
